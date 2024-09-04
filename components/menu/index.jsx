@@ -23,7 +23,7 @@ export function HeadMenu({ pages, themeButton }) {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       {/* Мобильное меню */}
       <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
         <IconButton
