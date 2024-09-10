@@ -1,9 +1,7 @@
 import React, { useReducer } from "react";
 
-import { createTheme } from "@mui/material/styles";
-import { green, lime, purple } from "@mui/material/colors";
-
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -13,39 +11,12 @@ import {
   FormControl,
   InputLabel,
   Input,
-  Item,
 } from "@mui/material";
+
+import { Form } from "./form";
+
 import { HeadMenu } from "../components/menu";
-import { Typing } from "../components/typing";
-
-const lightTheme = createTheme({
-  palette: {
-    primary: {
-      main: lime[500],
-    },
-    secondary: {
-      main: green[500],
-    },
-    mode: "light",
-  },
-});
-
-const darkTheme = createTheme({
-  palette: {
-    primary: {
-      main: purple[500],
-    },
-    secondary: {
-      main: green[500],
-    },
-    mode: "dark",
-  },
-});
-
-const theme = {
-  light: lightTheme,
-  dark: darkTheme,
-};
+import { theme } from "../utils/theme";
 
 export default function Home() {
   const [isDarkTheme, toggleTheme] = useReducer((is) => !is, false);
@@ -53,7 +24,7 @@ export default function Home() {
   return (
     <ThemeProvider theme={isDarkTheme ? theme.dark : theme.light}>
       <HeadMenu
-        pages={["Products", "Pricing", "Blog"]}
+        pages={["На главную", "Проекты", "Связаться со мной"]}
         themeButton={
           <Button onClick={toggleTheme} variant="secondary">
             Сменить тему
@@ -68,35 +39,64 @@ export default function Home() {
             direction="row"
             alignItems="center"
             justifyContent="center"
-            sx={{ minHeight: "100vh" }}
+            sx={{ minHeight: "90vh" }}
           >
             <Grid size={8}>
-              <Typography variant="h1">Таня, Frontend разработчик</Typography>
+              <Grid spacing={2} direction="row">
+                <Grid size={6}>
+                  <Typography
+                    variant="h1"
+                    sx={{ typography: { sm: "h1", xs: "h3" } }}
+                    style={{ paddingBottom: "20px" }}
+                  >
+                    Татьяна
+                  </Typography>
+                </Grid>
+                <Grid size={6}>
+                  <Typography
+                    variant="h1"
+                    sx={{ typography: { sm: "h1", xs: "h3" } }}
+                    style={{ paddingBottom: "20px" }}
+                  >
+                    Frontend разработчик
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Typography
+                variant="h1"
+                sx={{ typography: { sm: "h5", xs: "subtitle1" } }}
+              >
+                Реализовываю web-проекты на React.JS
+              </Typography>
             </Grid>
-            <Grid size={4}>size=4</Grid>
+            <Grid size={4}>
+              <Avatar src="./avatar.png" sx={{ width: 300, height: 300 }} />
+            </Grid>
           </Grid>
         </Container>
       </Box>
-      <Box
-        height="100vh"
-        display="flex"
-        flexDirection="column"
-        style={{ "background-color": "blue" }}
-      >
-        <Typing />
+      <Box height="100vh" display="flex" flexDirection="column">
+        <Container>
+          <Typography variant="h1" sx={{ typography: { sm: "h2", xs: "h4" } }}>
+            Проекты
+          </Typography>
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Grid size={8}>Магазин</Grid>
+            <Grid size={4}>скоро будет...</Grid>
+          </Grid>
+          <Button variant="contained">See more projects</Button>
+        </Container>
       </Box>
-      <Box
-        height="100vh"
-        display="flex"
-        flexDirection="column"
-        style={{ "background-color": "purple" }}
-      >
+      <Box height="100vh" display="flex" flexDirection="column">
         <Container>
           <Typography variant="h3">Связаться со мной</Typography>
-          <FormControl>
-            <InputLabel htmlFor="my-input">Email address</InputLabel>
-            <Input id="my-input" aria-describedby="my-helper-text" />
-          </FormControl>
+          <Form />
         </Container>
       </Box>
     </ThemeProvider>
