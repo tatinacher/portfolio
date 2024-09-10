@@ -13,7 +13,7 @@ import {
   Input,
 } from "@mui/material";
 
-import { Form } from "./form";
+import Form from "./form";
 
 import { HeadMenu } from "../components/menu";
 import { theme } from "../utils/theme";
