@@ -4,13 +4,13 @@ import {
   Avatar,
   Box,
   Button,
+  Card,
+  CardMedia,
+  CardContent,
   Container,
   Grid2 as Grid,
   ThemeProvider,
   Typography,
-  FormControl,
-  InputLabel,
-  Input,
 } from "@mui/material";
 
 import Form from "./form";
@@ -18,35 +18,82 @@ import Form from "./form";
 import { HeadMenu } from "../components/menu";
 import { theme } from "../utils/theme";
 
+const menu = [
+  {
+    name: "На гравную",
+    id: "main",
+  },
+  {
+    name: "Проекты",
+    id: "projects",
+  },
+  {
+    name: "Связаться со мной",
+    id: "connect",
+  },
+];
+
 export default function Home() {
   const [isDarkTheme, toggleTheme] = useReducer((is) => !is, false);
+
+  const projects = [
+    {
+      image: "./shop.png",
+      imageDescription: "",
+      description: "Магазин",
+    },
+    {
+      image: "./hangyl.png",
+      imageDescription: "",
+      description: "Учим корейский!",
+    },
+  ];
 
   return (
     <ThemeProvider theme={isDarkTheme ? theme.dark : theme.light}>
       <HeadMenu
-        pages={["На главную", "Проекты", "Связаться со мной"]}
+        pages={menu}
         themeButton={
           <Button onClick={toggleTheme} variant="secondary">
             Сменить тему
           </Button>
         }
       />
-      <Box height="100vh" display="flex" flexDirection="column">
+      <Box
+        minHeight="100vh"
+        display="flex"
+        flexDirection="column"
+        sx={{
+          bgcolor: "primary.background",
+          color: "primary.text",
+          p: 5,
+        }}
+        sm={{
+          p: 10,
+        }}
+        id="main"
+      >
         <Container>
           <Grid
-            container
-            spacing={2}
+            rowSpacing={{ xs: 1, sm: 2 }}
             direction="row"
             alignItems="center"
             justifyContent="center"
-            sx={{ minHeight: "90vh" }}
+            sx={{
+              minHeight: "90vh",
+              display: "flex",
+              flexDirection: { sm: "row", xs: "column-reverse" },
+            }}
           >
-            <Grid size={8}>
+            <Grid
+              size={{ xs: 6, md: 8 }}
+              sx={{ textAlign: { sm: "left", xs: "center" } }}
+            >
               <Grid spacing={2} direction="row">
                 <Grid size={6}>
                   <Typography
                     variant="h1"
-                    sx={{ typography: { sm: "h1", xs: "h3" } }}
+                    sx={{ typography: { md: "h1", xs: "h3" } }}
                     style={{ paddingBottom: "20px" }}
                   >
                     Татьяна
@@ -55,7 +102,7 @@ export default function Home() {
                 <Grid size={6}>
                   <Typography
                     variant="h1"
-                    sx={{ typography: { sm: "h1", xs: "h3" } }}
+                    sx={{ typography: { md: "h1", xs: "h3" } }}
                     style={{ paddingBottom: "20px" }}
                   >
                     Frontend разработчик
@@ -69,33 +116,68 @@ export default function Home() {
                 Реализовываю web-проекты на React.JS
               </Typography>
             </Grid>
-            <Grid size={4}>
-              <Avatar src="./avatar.png" sx={{ width: 300, height: 300 }} />
+            <Grid size={{ xs: 6, md: 4 }}>
+              <Avatar
+                src={isDarkTheme ? "./av_d.png" : "./avatar.png"}
+                sx={{
+                  width: { md: 300, xs: 200 },
+                  height: { md: 300, xs: 200 },
+                }}
+              />
             </Grid>
           </Grid>
         </Container>
       </Box>
-      <Box height="100vh" display="flex" flexDirection="column">
+      <Box
+        minHeight="100vh"
+        display="flex"
+        flexDirection="column"
+        id="projects"
+        sx={{ pt: 15 }}
+      >
         <Container>
-          <Typography variant="h1" sx={{ typography: { sm: "h2", xs: "h4" } }}>
+          <Typography
+            variant="h1"
+            sx={{ typography: { sm: "h2", xs: "h4" } }}
+            style={{ paddingBottom: "40px" }}
+          >
             Проекты
           </Typography>
           <Grid
             container
-            spacing={2}
+            spacing={{ xs: 1, sm: 2 }}
             direction="row"
             alignItems="center"
             justifyContent="center"
           >
-            <Grid size={8}>Магазин</Grid>
-            <Grid size={4}>скоро будет...</Grid>
+            {projects.map(({ image, imageDescription, description }, key) => (
+              <Grid size={{ xs: 12, sm: 6 }} id={key}>
+                <Card variant="outlined">
+                  <CardMedia
+                    sx={{ height: 340 }}
+                    image={image}
+                    title={imageDescription}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
-          <Button variant="contained">See more projects</Button>
+          {/* <Button variant="contained">See more projects</Button> */}
         </Container>
       </Box>
-      <Box height="100vh" display="flex" flexDirection="column">
+      <Box
+        height="100vh"
+        display="flex"
+        flexDirection="column"
+        id="connect"
+        sx={{ pt: 15 }}
+      >
         <Container>
-          <Typography variant="h3">Связаться со мной</Typography>
           <Form />
         </Container>
       </Box>

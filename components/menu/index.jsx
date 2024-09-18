@@ -8,6 +8,7 @@ import {
   Button,
   IconButton,
   MenuItem,
+  Container,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -18,7 +19,12 @@ export function HeadMenu({ pages, themeButton }) {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = ({ currentTarget }) => {
+    const id = currentTarget?.dataset?.id;
+    if (id && document) {
+      const section = document.getElementById(id);
+      section.scrollIntoView({ behavior: "smooth" });
+    }
     setAnchorElNav(null);
   };
 
@@ -52,26 +58,29 @@ export function HeadMenu({ pages, themeButton }) {
           onClose={handleCloseNavMenu}
           sx={{ display: { xs: "block", md: "none" } }}
         >
-          {pages.map((page) => (
-            <MenuItem key={page} onClick={handleCloseNavMenu}>
-              <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+          {pages.map(({ name, id }) => (
+            <MenuItem key={id} onClick={handleCloseNavMenu} data-id={id}>
+              <Typography sx={{ textAlign: "center" }}>{name}</Typography>
             </MenuItem>
           ))}
         </Menu>
       </Box>
       {/* Десктоп меню */}
-      <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-        {pages.map((page) => (
-          <Button
-            key={page}
-            onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: "white", display: "block" }}
-          >
-            {page}
-          </Button>
-        ))}
-        {themeButton}
-      </Box>
+      <Container>
+        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          {pages.map(({ name, id }) => (
+            <Button
+              key={id}
+              data-id={id}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              {name}
+            </Button>
+          ))}
+          {themeButton}
+        </Box>
+      </Container>
     </AppBar>
   );
 }
