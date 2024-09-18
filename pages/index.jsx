@@ -3,7 +3,7 @@ import React, { useReducer } from "react";
 import {
   Avatar,
   Box,
-  Button,
+  Switch,
   Card,
   CardMedia,
   CardContent,
@@ -11,6 +11,7 @@ import {
   Grid2 as Grid,
   ThemeProvider,
   Typography,
+  FormControlLabel,
 } from "@mui/material";
 
 import Form from "./form";
@@ -20,7 +21,7 @@ import { theme } from "../utils/theme";
 
 const menu = [
   {
-    name: "На гравную",
+    name: "На главную",
     id: "main",
   },
   {
@@ -54,9 +55,10 @@ export default function Home() {
       <HeadMenu
         pages={menu}
         themeButton={
-          <Button onClick={toggleTheme} variant="secondary">
-            Сменить тему
-          </Button>
+          <FormControlLabel
+            control={<Switch checked={isDarkTheme} onChange={toggleTheme} />}
+            label="сменить тему"
+          />
         }
       />
       <Box

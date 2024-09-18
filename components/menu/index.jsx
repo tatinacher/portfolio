@@ -67,18 +67,27 @@ export function HeadMenu({ pages, themeButton }) {
       </Box>
       {/* Десктоп меню */}
       <Container>
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          {pages.map(({ name, id }) => (
-            <Button
-              key={id}
-              data-id={id}
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              {name}
-            </Button>
-          ))}
-          {themeButton}
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: { xs: "none", md: "flex" },
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            {pages.map(({ name, id }) => (
+              <Button
+                key={id}
+                data-id={id}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "primary.text", display: "block" }}
+              >
+                {name}
+              </Button>
+            ))}
+          </div>
+          <div>{themeButton}</div>
         </Box>
       </Container>
     </AppBar>
