@@ -12,6 +12,7 @@ import {
   ThemeProvider,
   Typography,
   FormControlLabel,
+  CardActionArea,
 } from "@mui/material";
 
 import Form from "./form";
@@ -47,6 +48,7 @@ export default function Home() {
       image: "./hangyl.png",
       imageDescription: "",
       description: "Учим корейский!",
+      link: "https://learn-korean-flax.vercel.app/",
     },
   ];
 
@@ -152,22 +154,26 @@ export default function Home() {
             alignItems="center"
             justifyContent="center"
           >
-            {projects.map(({ image, imageDescription, description }, key) => (
-              <Grid size={{ xs: 12, sm: 6 }} id={key}>
-                <Card variant="outlined">
-                  <CardMedia
-                    sx={{ height: 340 }}
-                    image={image}
-                    title={imageDescription}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+            {projects.map(
+              ({ image, imageDescription, description, link }, key) => (
+                <Grid size={{ xs: 12, sm: 6 }} id={key}>
+                  <CardActionArea href={link}>
+                    <Card variant="outlined">
+                      <CardMedia
+                        sx={{ height: 340 }}
+                        image={image}
+                        title={imageDescription}
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          {description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </CardActionArea>
+                </Grid>
+              )
+            )}
           </Grid>
           {/* <Button variant="contained">See more projects</Button> */}
         </Container>
