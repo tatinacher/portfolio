@@ -40,12 +40,13 @@ export default function Home() {
 
   const projects = [
     {
-      image: "./shop.png",
+      image: "./shop.webp",
       imageDescription: "",
-      description: "Магазин",
+      description: "Furniture Shop",
+      link: "https://shop-sigma-swart.vercel.app/",
     },
     {
-      image: "./hangyl.png",
+      image: "./hangyl.webp",
       imageDescription: "",
       description: "Учим корейский!",
       link: "https://learn-korean-flax.vercel.app/",
