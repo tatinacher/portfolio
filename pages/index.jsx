@@ -98,7 +98,7 @@ export default function Home() {
             </Grid>
             <Grid size={{ xs: 6, md: 4 }}>
               <Avatar
-                src={isDarkTheme ? "./av_d.png" : "./avatar.png"}
+                src={isDarkTheme ? "./av_d.webp" : "./avatar.webp"}
                 sx={{
                   width: { md: 250, xs: 200 },
                   height: { md: 250, xs: 200 },

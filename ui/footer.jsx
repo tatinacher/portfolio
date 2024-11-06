@@ -38,7 +38,7 @@ export const Footer = () => {
               tatinacher@gmail.com
             </Typography>
           </Grid>
-          <Grid size={{ xs: 12, sm: 6 }}>13</Grid>
+          <Grid size={{ xs: 12, sm: 6 }}></Grid>
         </Grid>
       </Container>
     </Box>
