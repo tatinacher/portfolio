@@ -1,7 +1,17 @@
 import { createTheme } from "@mui/material/styles";
 import { common, green, lime, purple } from "@mui/material/colors";
+import localFont from 'next/font/local'
+
+const BDOGrotesk = localFont({
+    name: 'BDOGrotesk',
+    src: './BDOGrotesk-VF.woff2',
+    weight: "normal",
+})
 
 const lightTheme = createTheme({
+    typography: {
+        fontFamily: BDOGrotesk.style.fontFamily
+    },
     palette: {
         primary: {
             main: lime[500],
@@ -9,7 +19,10 @@ const lightTheme = createTheme({
             text: '#1C1C1C'
         },
         secondary: {
-            main: green[500],
+            main: '#ffffff',
+            light: '#858585',
+            dark: '#000',
+            contrastText: '#000',
         },
         base: {
             main: '#1C1C1C',
@@ -20,6 +33,9 @@ const lightTheme = createTheme({
 });
 
 const darkTheme = createTheme({
+    typography: {
+        fontFamily: BDOGrotesk.style.fontFamily
+    },
     palette: {
         primary: {
             main: purple[500],
@@ -27,7 +43,10 @@ const darkTheme = createTheme({
             text: '#f0f0f0'
         },
         secondary: {
-            main: green[500],
+            main: '#000000',
+            light: '#858585',
+            dark: '#fff',
+            contrastText: '#fff',
         },
         base: {
             main: '#1C1C1C',

@@ -3,55 +3,26 @@ import React, { useReducer } from "react";
 import {
   Avatar,
   Box,
-  Switch,
   Card,
-  CardMedia,
+  CardActionArea,
   CardContent,
+  CardMedia,
   Container,
+  FormControlLabel,
   Grid2 as Grid,
+  Switch,
   ThemeProvider,
   Typography,
-  FormControlLabel,
-  CardActionArea,
 } from "@mui/material";
 
-import Form from "./form";
-
-import { HeadMenu } from "../components/menu";
+import Form from "../features/form";
 import { theme } from "../utils/theme";
 
-const menu = [
-  {
-    name: "На главную",
-    id: "main",
-  },
-  {
-    name: "Проекты",
-    id: "projects",
-  },
-  {
-    name: "Связаться со мной",
-    id: "connect",
-  },
-];
+import { ConnectChip, HeadMenu, Footer } from "../ui";
+import { connects, menu, projects } from "../app/data";
 
 export default function Home() {
   const [isDarkTheme, toggleTheme] = useReducer((is) => !is, false);
-
-  const projects = [
-    {
-      image: "./shop.webp",
-      imageDescription: "",
-      description: "Furniture Shop",
-      link: "https://shop-sigma-swart.vercel.app/",
-    },
-    {
-      image: "./hangyl.webp",
-      imageDescription: "",
-      description: "Учим корейский!",
-      link: "https://learn-korean-flax.vercel.app/",
-    },
-  ];
 
   return (
     <ThemeProvider theme={isDarkTheme ? theme.dark : theme.light}>
@@ -60,7 +31,15 @@ export default function Home() {
         themeButton={
           <FormControlLabel
             control={<Switch checked={isDarkTheme} onChange={toggleTheme} />}
-            label="сменить тему"
+            label={
+              <Avatar
+                src={"./night.png"}
+                sx={{
+                  width: { xs: 32 },
+                  height: { xs: 32 },
+                }}
+              />
+            }
           />
         }
       />
@@ -69,12 +48,8 @@ export default function Home() {
         display="flex"
         flexDirection="column"
         sx={{
-          bgcolor: "primary.background",
+          bgcolor: "secondary.main",
           color: "primary.text",
-          p: 5,
-        }}
-        sm={{
-          p: 10,
         }}
         id="main"
       >
@@ -82,72 +57,81 @@ export default function Home() {
           <Grid
             rowSpacing={{ xs: 1, sm: 2 }}
             direction="row"
-            alignItems="center"
             justifyContent="center"
             sx={{
-              minHeight: "90vh",
               display: "flex",
+              justifyContent: "space-between",
               flexDirection: { sm: "row", xs: "column-reverse" },
+              paddingTop: "170px",
             }}
           >
             <Grid
               size={{ xs: 6, md: 8 }}
               sx={{ textAlign: { sm: "left", xs: "center" } }}
             >
-              <Grid spacing={2} direction="row">
-                <Grid size={6}>
-                  <Typography
-                    variant="h1"
-                    sx={{ typography: { md: "h1", xs: "h3" } }}
-                    style={{ paddingBottom: "20px" }}
-                  >
-                    Татьяна
-                  </Typography>
-                </Grid>
-                <Grid size={6}>
-                  <Typography
-                    variant="h1"
-                    sx={{ typography: { md: "h1", xs: "h3" } }}
-                    style={{ paddingBottom: "20px" }}
-                  >
-                    Frontend разработчик
-                  </Typography>
-                </Grid>
-              </Grid>
               <Typography
                 variant="h1"
-                sx={{ typography: { sm: "h5", xs: "subtitle1" } }}
+                sx={{
+                  typography: { sm: "h2", xs: "h2" },
+                  color: "secondary.light",
+                }}
               >
-                Реализовываю web-проекты на React.JS
+                Hi! I'm Tatiana,
               </Typography>
+              <Box>
+                <Typography
+                  variant="h1"
+                  sx={{ typography: { md: "h1", xs: "h3" } }}
+                >
+                  Frontend
+                </Typography>
+                <Typography
+                  variant="h1"
+                  sx={{
+                    typography: { md: "h1", xs: "h3" },
+                    padding: "0 0 20px 150px",
+                  }}
+                >
+                  developer
+                </Typography>
+              </Box>
             </Grid>
             <Grid size={{ xs: 6, md: 4 }}>
               <Avatar
                 src={isDarkTheme ? "./av_d.png" : "./avatar.png"}
                 sx={{
-                  width: { md: 300, xs: 200 },
-                  height: { md: 300, xs: 200 },
+                  width: { md: 250, xs: 200 },
+                  height: { md: 250, xs: 200 },
                 }}
               />
             </Grid>
           </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { sm: "row", xs: "column" },
+              mt: "30px",
+            }}
+          >
+            {connects.map(({ label, link, icon }) => (
+              <Box sx={{ padding: "0 15px 0 0" }}>
+                <ConnectChip label={label} link={link} icon={icon} />
+              </Box>
+            ))}
+          </Box>
         </Container>
       </Box>
       <Box
-        minHeight="100vh"
         display="flex"
         flexDirection="column"
         id="projects"
-        sx={{ pt: 15 }}
+        sx={{
+          bgcolor: "secondary.main",
+          color: "primary.text",
+          pt: 15,
+        }}
       >
         <Container>
-          <Typography
-            variant="h1"
-            sx={{ typography: { sm: "h2", xs: "h4" } }}
-            style={{ paddingBottom: "40px" }}
-          >
-            Проекты
-          </Typography>
           <Grid
             container
             spacing={{ xs: 1, sm: 2 }}
@@ -157,7 +141,7 @@ export default function Home() {
           >
             {projects.map(
               ({ image, imageDescription, description, link }, key) => (
-                <Grid size={{ xs: 12, sm: 6 }} id={key}>
+                <Grid size={{ xs: 12, sm: 6 }} key={key}>
                   <CardActionArea href={link}>
                     <Card variant="outlined">
                       <CardMedia
@@ -176,20 +160,24 @@ export default function Home() {
               )
             )}
           </Grid>
-          {/* <Button variant="contained">See more projects</Button> */}
         </Container>
       </Box>
       <Box
-        height="100vh"
         display="flex"
         flexDirection="column"
         id="connect"
-        sx={{ pt: 15 }}
+        sx={{
+          bgcolor: "secondary.main",
+          color: "primary.text",
+          pt: 15,
+          pb: 15,
+        }}
       >
         <Container>
           <Form />
         </Container>
       </Box>
+      <Footer />
     </ThemeProvider>
   );
 }
